@@ -1,202 +1,47 @@
 import { useState } from "react";
-import { isSupabaseConfigured, supabase } from "./lib/supabase.js";
 
-const paths = [
-  { number: "01", title: "Aprenda", detail: "Descubra novas habilidades", href: "#experiencias", tone: "lime" },
-  { number: "02", title: "Conecte", detail: "Encontre pessoas e ideias", href: "#comunidade", tone: "coral" },
-  { number: "03", title: "Transforme", detail: "Tire projetos do papel", href: "#contato", tone: "violet" },
+const phone = "5569993360496";
+const chat = (text = "Olá! Gostaria de conhecer os serviços da Barros & Associados.") => "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+const services = [
+ ["01","Consultoria contábil e fiscal","Análise técnica e orientação estratégica para a saúde financeira do negócio.","◫"],
+ ["02","Planejamento tributário","Estratégias legais para avaliar cenários e otimizar a carga tributária.","⌁"],
+ ["03","Compliance fiscal","Conformidade, obrigações e controles para reduzir riscos e imprevistos.","✓"],
+ ["04","BPO financeiro","Gestão de contas, fluxo de caixa e informações para decisões melhores.","▤"],
+ ["05","Gestão orçamentária","Planejamento, indicadores e previsibilidade para crescer com consistência.","↗"],
+ ["06","Legalização de empresas","Abertura, alterações, regularização e suporte societário.","⌂"],
+ ["07","Auditoria e diagnóstico","Análise de processos para identificar oportunidades e pontos de atenção.","◎"],
+ ["08","Reforma tributária","Preparação para IBS, CBS e o período de transição tributária.","◇"]
 ];
-
-const experiences = [
-  { number: "01", icon: "✳", title: "Aprender na prática", text: "Experimente, descubra e desenvolva habilidades em experiências que fazem sentido no mundo real.", tag: "APRENDIZADO" },
-  { number: "02", icon: "↗", title: "Criar em conjunto", text: "Aproxime pessoas, compartilhe repertório e encontre novas perspectivas para suas ideias.", tag: "COLABORAÇÃO" },
-  { number: "03", icon: "⌘", title: "Fazer acontecer", text: "Transforme boas conversas em projetos, iniciativas e oportunidades concretas.", tag: "INOVAÇÃO" },
+const sectors = ["Farmácias e drogarias","Saúde e clínicas","Mecânica e automotivo","Licitações e contratos","Franquias e varejo","Transportes e logística","Tecnologia e software","Marketing e serviços","Advocacia e consultoria","Psicologia e bem-estar","Beleza e estética","Combustíveis e conveniência"];
+const faqs = [
+ ["Atendem empresas de fora de Rondônia?","Sim. O atendimento é presencial em Porto Velho (RO) e digital para empresas de todo o Brasil."],
+ ["Como funciona a primeira conversa?","Entendemos a atividade, o momento e os objetivos da empresa. Em seguida, indicamos próximos passos e uma proposta adequada."],
+ ["Vocês ajudam na troca de contador?","Sim. Orientamos a transição, organizamos os documentos necessários e acompanhamos os alinhamentos técnicos."],
+ ["Posso contratar apenas um serviço?","Sim. As soluções podem ser contratadas de forma integrada ou conforme a necessidade da empresa."],
+ ["Como saber se minha empresa pode pagar menos impostos?","A avaliação considera atividade, faturamento, custos e regime tributário para comparar cenários dentro da legislação."]
 ];
+function Arrow({up=false}) { return <svg viewBox="0 0 20 20" aria-hidden="true"><path d={up?"M5 15 15 5M6 5h9v9":"M3 10h13M10 4l6 6-6 6"} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>; }
+function Brand(){return <a className="brand" href="#inicio" aria-label="Barros & Associados"><span className="brand-mark"><i/><i/><i/><i/></span><span className="brand-type"><strong>BARROS <b>&</b></strong><small>ASSOCIADOS</small></span></a>;}
 
-function Arrow({ diagonal = false }) {
-  return <svg viewBox="0 0 20 20" aria-hidden="true"><path d={diagonal ? "M6 14 14 6M7 6h7v7" : "M3 10h13M10 4l6 6-6 6"} fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>;
-}
-
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("idle");
-  const [feedback, setFeedback] = useState("");
-
-  const closeMenu = () => setMenuOpen(false);
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const cleanName = name.trim();
-    if (!cleanName) {
-      setStatus("error");
-      setFeedback("Digite seu nome para continuar.");
-      return;
-    }
-    if (!isSupabaseConfigured || !supabase) {
-      setStatus("error");
-      setFeedback("O cadastro está temporariamente indisponível. Tente novamente mais tarde.");
-      return;
-    }
-
-    setStatus("loading");
-    setFeedback("");
-    try {
-      const { error } = await supabase.from("test_names").insert({ name: cleanName });
-      if (error) throw error;
-      setStatus("success");
-      setFeedback("Pronto! Seu nome chegou até a gente. Obrigado por se conectar.");
-      setName("");
-    } catch {
-      setStatus("error");
-      setFeedback("Não foi possível enviar agora. Tente novamente em instantes.");
-    }
-  }
-
-  return (
-    <div className="site-shell">
-      <div className="announcement">
-        <div className="container announcement-inner">
-          <span>OFICINA CONEXÃO <i>—</i> IDEIAS EM MOVIMENTO</span>
-          <a href="#contato">Vem construir com a gente <Arrow diagonal /></a>
-        </div>
-      </div>
-
-      <header className="site-header">
-        <div className="container header-inner">
-          <a className="brand" href="#inicio" aria-label="Oficina Conexão - início" onClick={closeMenu}>
-            <span className="brand-symbol"><i></i><i></i><i></i><i></i></span>
-            <span className="brand-name">oficina<span>conexão</span></span>
-          </a>
-          <button className="menu-toggle" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
-            <span></span><span></span>
-          </button>
-          <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Navegação principal">
-            <a href="#inicio" onClick={closeMenu}>Início</a>
-            <a href="#sobre" onClick={closeMenu}>Nossa ideia</a>
-            <a href="#experiencias" onClick={closeMenu}>Experiências</a>
-            <a href="#comunidade" onClick={closeMenu}>Comunidade</a>
-            <a className="nav-cta" href="#contato" onClick={closeMenu}>Faça parte <Arrow diagonal /></a>
-          </nav>
-        </div>
-      </header>
-
-      <main>
-        <section className="hero" id="inicio">
-          <div className="hero-photo" role="img" aria-label="Jovens colaborando e criando em um espaço de aprendizagem" />
-          <div className="hero-overlay"></div>
-          <div className="container hero-content">
-            <div className="hero-copy">
-              <span className="eyebrow eyebrow-light"><i></i> IDEIAS, PESSOAS E POSSIBILIDADES</span>
-              <h1>Seu próximo<br />grande passo<br /><em>começa aqui.</em></h1>
-              <p>Um espaço para descobrir talentos, conectar pessoas e transformar ideias em experiências que fazem a diferença.</p>
-              <div className="hero-actions">
-                <a className="button button-lime" href="#experiencias">Explore a oficina <Arrow /></a>
-                <a className="hero-text-link" href="#sobre">Conheça nossa ideia <Arrow diagonal /></a>
-              </div>
-            </div>
-            <div className="hero-bottomline">
-              <span>01 — 03</span><i></i><span>APRENDER · CONECTAR · REALIZAR</span>
-            </div>
-          </div>
-          <div className="hero-side-note"><span>OC.</span><small>UM LUGAR<br />PARA FAZER</small></div>
-        </section>
-
-        <section className="path-strip" aria-label="Explore a Oficina Conexão">
-          <div className="container path-grid">
-            <div className="path-heading"><span className="eyebrow">SEU CAMINHO COMEÇA AQUI</span><h2>Encontre seu<br />próximo passo.</h2></div>
-            {paths.map((item) => (
-              <a className={`path-card ${item.tone}`} href={item.href} key={item.number}>
-                <span className="path-number">{item.number}</span>
-                <span className="path-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
-                <span className="path-arrow"><Arrow diagonal /></span>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="about-section section-pad" id="sobre">
-          <div className="container about-grid">
-            <div className="about-photo-wrap">
-              <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1200&q=88" alt="Grupo de estudantes colaborando em uma atividade" loading="lazy" />
-              <div className="photo-sticker"><span>IDEIAS</span><strong>ganham vida<br />em conjunto.</strong><i>✳</i></div>
-              <span className="photo-index">CONEXÃO É O COMEÇO / 001</span>
-            </div>
-            <div className="about-copy">
-              <span className="eyebrow">O QUE É A OFICINA?</span>
-              <h2>Não é só sobre<br />ter uma ideia.<br /><em>É sobre fazer.</em></h2>
-              <p className="about-lead">A Oficina Conexão é um ponto de encontro entre curiosidade, conhecimento e ação.</p>
-              <p>Acreditamos que as melhores soluções surgem quando pessoas diferentes compartilham o que sabem. Aqui, aprender é experimentar, colaborar é crescer e cada ideia tem espaço para evoluir.</p>
-              <a className="inline-link" href="#comunidade">Conheça nossa comunidade <Arrow diagonal /></a>
-            </div>
-          </div>
-        </section>
-
-        <section className="experience-section section-pad" id="experiencias">
-          <div className="container">
-            <div className="section-heading">
-              <div><span className="eyebrow">EXPERIÊNCIAS QUE MOVEM</span><h2>Ideias boas pedem<br /><em>movimento.</em></h2></div>
-              <p>Do primeiro insight à realização: encontre ferramentas, pessoas e experiências para avançar.</p>
-            </div>
-            <div className="experience-grid">
-              {experiences.map((item) => (
-                <article className="experience-card" key={item.number}>
-                  <div className="experience-card-top"><span>{item.number}</span><span className="experience-icon">{item.icon}</span></div>
-                  <span className="experience-tag">{item.tag}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                  <a href="#contato" aria-label={`Saiba mais: ${item.title}`}><Arrow diagonal /></a>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="community-section" id="comunidade">
-          <div className="community-image" role="img" aria-label="Pessoas trabalhando juntas em um projeto criativo" />
-          <div className="community-overlay"></div>
-          <div className="container community-content">
-            <span className="eyebrow eyebrow-light">GENTE QUE FAZ ACONTECER</span>
-            <h2>Uma ideia muda tudo.<br /><em>Uma comunidade move o mundo.</em></h2>
-            <p>O próximo projeto incrível pode começar com uma conversa simples.</p>
-            <a className="button button-white" href="#contato">Entre nessa conexão <Arrow /></a>
-          </div>
-          <span className="community-mark">FAÇA PARTE / OC</span>
-        </section>
-
-        <section className="contact-section section-pad" id="contato">
-          <div className="container contact-grid">
-            <div className="contact-copy">
-              <span className="eyebrow">SEU PRÓXIMO PASSO</span>
-              <h2>Vamos tirar<br />uma ideia<br /><em>do papel?</em></h2>
-              <p>Deixe seu nome. A primeira conexão começa com um simples oi.</p>
-              <div className="contact-promise"><span>✳</span><div><strong>Um espaço aberto para novas possibilidades.</strong><small>Conhecimento compartilhado. Ideias em movimento.</small></div></div>
-            </div>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-top"><span className="form-kicker">BORA COMEÇAR?</span><span className="form-step">01 / 01</span></div>
-              <h3>Quem está chegando?</h3>
-              <p>Conta seu nome pra gente.</p>
-              <label htmlFor="person-name">Seu nome</label>
-              <input id="person-name" type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Digite seu nome completo" maxLength={120} autoComplete="name" required />
-              <button className="button button-submit" type="submit" disabled={status === "loading"}>{status === "loading" ? "Enviando..." : "Quero me conectar"} <Arrow /></button>
-              <p className="form-privacy">Seus dados serão usados apenas para este contato.</p>
-              {feedback && <p className={status === "success" ? "form-feedback success" : "form-feedback error"} role="status">{feedback}</p>}
-            </form>
-          </div>
-        </section>
-      </main>
-
-      <footer className="site-footer">
-        <div className="container footer-main">
-          <a className="brand brand-footer" href="#inicio">
-            <span className="brand-symbol"><i></i><i></i><i></i><i></i></span>
-            <span className="brand-name">oficina<span>conexão</span></span>
-          </a>
-          <p>Ideias em movimento.<br />Possibilidades sem limite.</p>
-          <a className="footer-top" href="#inicio">Voltar ao início ↑</a>
-        </div>
-        <div className="container footer-bottom"><span>© {new Date().getFullYear()} Oficina Conexão. Todos os direitos reservados.</span><span className={isSupabaseConfigured ? "footer-status online" : "footer-status"}><i></i>{isSupabaseConfigured ? "SISTEMA CONECTADO" : "MODO DEMONSTRAÇÃO"}</span></div>
-      </footer>
-    </div>
-  );
+export default function App(){
+ const [menu,setMenu]=useState(false),[faq,setFaq]=useState(0);
+ const [form,setForm]=useState({name:"",email:"",company:"",subject:"Consultoria contábil e fiscal",message:""});
+ const change=e=>setForm({...form,[e.target.name]:e.target.value});
+ const send=e=>{e.preventDefault();const msg=["Olá! Gostaria de falar com a Barros & Associados.", "Nome: "+form.name,"E-mail: "+form.email,"Empresa: "+(form.company||"Não informado"),"Assunto: "+form.subject,"Mensagem: "+(form.message||"Gostaria de receber mais informações.")].join("\n");location.href=chat(msg);};
+ return <div className="site-shell">
+  <div className="topline"><div className="container topline-inner"><span><i/> CONTABILIDADE · CONSULTORIA FISCAL · PLANEJAMENTO</span><a href={chat()} target="_blank" rel="noreferrer">Fale com um especialista <Arrow up/></a></div></div>
+  <header className="site-header"><div className="container header-inner"><Brand/><button className="menu-toggle" aria-label="Abrir menu" aria-expanded={menu} onClick={()=>setMenu(!menu)}><span/><span/></button><nav className={menu?"main-nav is-open":"main-nav"}><a href="#sobre" onClick={()=>setMenu(false)}>A empresa</a><a href="#servicos" onClick={()=>setMenu(false)}>Serviços</a><a href="#setores" onClick={()=>setMenu(false)}>Setores</a><a href="#equipe" onClick={()=>setMenu(false)}>Liderança</a><a href="#contato" onClick={()=>setMenu(false)}>Contato</a><a className="nav-cta" href={chat()} target="_blank" rel="noreferrer" onClick={()=>setMenu(false)}>Solicitar atendimento <Arrow up/></a></nav></div></header>
+  <main>
+   <section className="hero" id="inicio"><div className="hero-image"/><div className="hero-shade"/><div className="container hero-inner"><div className="hero-copy"><span className="eyebrow eyebrow-light"><i/> INTELIGÊNCIA CONTÁBIL PARA DECISÕES MELHORES</span><h1>Mais clareza<br/>para <em>crescer.</em></h1><p>Contabilidade estratégica, inteligência fiscal e gestão financeira para empresas que querem avançar com segurança e visão de futuro.</p><div className="hero-actions"><a className="button button-gold" href={chat()} target="_blank" rel="noreferrer">Converse com nossa equipe <Arrow/></a><a className="text-link" href="#servicos">Conheça nossas soluções <Arrow up/></a></div></div><div className="hero-note"><span>BA.</span><small>ESTRATÉGIA<br/>EM CADA DECISÃO</small></div><div className="hero-foot"><span>PORTO VELHO · RO</span><i/><span>ATENDIMENTO EM TODO O BRASIL</span></div></div></section>
+   <section className="proof-strip"><div className="container proof-grid"><div><strong>2022</strong><span>Fundação da empresa</span></div><div><strong>18</strong><span>Setores atendidos</span></div><div><strong>RO · AM · PA</strong><span>Experiência regional</span></div><div><strong>Brasil</strong><span>Atendimento digital</span></div></div></section>
+   <section className="about-section section-pad" id="sobre"><div className="container about-grid"><div className="about-visual"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1300&q=85" alt="Ambiente corporativo contemporâneo" loading="lazy"/><div className="visual-caption"><span>01 / NOSSA VISÃO</span><strong>Conhecimento técnico.<br/>Visão de negócio.</strong></div><div className="visual-seal">B<span>&</span>A</div></div><div className="about-copy"><span className="eyebrow">SOBRE A BARROS & ASSOCIADOS</span><h2>Contabilidade que vai <em>além dos números.</em></h2><p className="lead">Apoiamos empresas a organizar suas operações, tomar decisões com confiança e construir um crescimento sustentável.</p><p>Unimos proximidade no atendimento e conhecimento técnico para transformar informações contábeis, fiscais e financeiras em direcionamento prático. Nosso trabalho é antecipar cenários, reduzir incertezas e dar mais clareza à gestão.</p><a className="inline-link" href="#equipe">Conheça nossa liderança <Arrow up/></a></div></div></section>
+   <section className="services-section section-pad" id="servicos"><div className="container"><div className="section-heading"><div><span className="eyebrow">SOLUÇÕES INTEGRADAS</span><h2>Estrutura para cada<br/><em>fase do seu negócio.</em></h2></div><p>Da rotina contábil ao planejamento estratégico, conectamos as áreas que sustentam uma empresa saudável.</p></div><div className="service-grid">{services.map(([n,t,d,s])=><article className="service-card" key={n}><div className="service-top"><span>{n}</span><b>{s}</b></div><h3>{t}</h3><p>{d}</p><a href={chat("Olá! Gostaria de saber mais sobre "+t+".")} target="_blank" rel="noreferrer" aria-label={"Saiba mais sobre "+t}><Arrow up/></a></article>)}</div><div className="services-bottom"><span>UM PARCEIRO PARA A GESTÃO DO SEU NEGÓCIO</span><a href={chat("Olá! Gostaria de solicitar uma proposta para minha empresa.")} target="_blank" rel="noreferrer">Solicite uma proposta <Arrow/></a></div></div></section>
+   <section className="sectors-section section-pad" id="setores"><div className="container sectors-layout"><div className="sectors-intro"><span className="eyebrow eyebrow-light">EXPERIÊNCIA MULTISSETORIAL</span><h2>Entendemos o<br/>seu <em>mercado.</em></h2><p>Cada segmento tem desafios próprios. Adaptamos o olhar contábil e fiscal à operação, às exigências e às oportunidades de cada atividade.</p><a className="button button-outline" href={chat("Olá! Quero conversar sobre soluções para o meu setor.")} target="_blank" rel="noreferrer">Fale sobre seu setor <Arrow/></a></div><div className="sector-list">{sectors.map((s,i)=><div className="sector-item" key={s}><span>{String(i+1).padStart(2,"0")}</span><strong>{s}</strong><Arrow up/></div>)}</div></div></section>
+   <section className="leadership-section section-pad" id="equipe"><div className="container leadership-grid"><div className="leadership-copy"><span className="eyebrow">LIDERANÇA E CONHECIMENTO</span><h2>Experiência técnica.<br/><em>Visão estratégica.</em></h2><p className="lead">Israel Barros</p><p>Diretor responsável pela Barros & Associados, contador aprovado no exame do CFC ainda no 4º período da graduação, com atuação como coordenador fiscal em Rondônia, Amazonas e Pará e experiência como docente universitário em Administração e Ciências Contábeis.</p><div className="credentials"><div><b>01</b><span>Aprovado no CFC<br/>no 4º período</span></div><div><b>02</b><span>Coordenação fiscal<br/>em RO, AM e PA</span></div><div><b>03</b><span>Docência universitária<br/>e prática de mercado</span></div></div><a className="inline-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">Conecte-se profissionalmente <Arrow up/></a></div><div className="leadership-visual"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1000&q=85" alt="Retrato profissional em ambiente corporativo" loading="lazy"/><div className="leadership-label"><span>DIRETOR RESPONSÁVEL</span><strong>Israel Barros</strong><small>BARROS & ASSOCIADOS</small></div></div></div></section>
+   <section className="quote-band"><div className="container quote-inner"><span className="quote-mark">“</span><blockquote>A contabilidade não é apenas uma obrigação legal. É uma ferramenta de decisão, crescimento e proteção do negócio.</blockquote><span className="quote-by">— ISRAEL BARROS</span></div></section>
+   <section className="faq-section section-pad"><div className="container faq-grid"><div><span className="eyebrow">DÚVIDAS FREQUENTES</span><h2>Informação clara<br/>desde o <em>início.</em></h2><p>Se sua dúvida não estiver aqui, nossa equipe está pronta para conversar.</p><a className="inline-link" href={chat("Olá! Tenho uma dúvida sobre os serviços da Barros & Associados.")} target="_blank" rel="noreferrer">Fale com um especialista <Arrow up/></a></div><div className="faq-list">{faqs.map(([q,a],i)=><article className={faq===i?"faq-item active":"faq-item"} key={q}><button onClick={()=>setFaq(faq===i?-1:i)} aria-expanded={faq===i}><span>{q}</span><b>{faq===i?"−":"+"}</b></button>{faq===i&&<p>{a}</p>}</article>)}</div></div></section>
+   <section className="contact-section section-pad" id="contato"><div className="container contact-grid"><div className="contact-copy"><span className="eyebrow eyebrow-light">VAMOS CONVERSAR?</span><h2>Seu próximo passo começa com <em>uma conversa.</em></h2><p>Conte um pouco sobre sua empresa. Vamos entender seu cenário e indicar o melhor caminho.</p><div className="contact-details"><a href="mailto:israel.barros@barroseassociados.com.br"><span>✉</span><div><small>E-MAIL</small><strong>israel.barros@barroseassociados.com.br</strong></div></a><a href="tel:+5569993360496"><span>↗</span><div><small>TELEFONE / WHATSAPP</small><strong>(69) 99336-0496</strong></div></a><div><span>⌖</span><div><small>LOCALIZAÇÃO</small><strong>Porto Velho — Rondônia · Atendimento digital em todo o Brasil</strong></div></div><div><span>◷</span><div><small>HORÁRIO DE ATENDIMENTO</small><strong>Seg. a sex., 8h às 18h · Sáb., 8h às 12h</strong></div></div></div></div><form className="contact-form" onSubmit={send}><div className="form-heading"><span>FALE COM NOSSA EQUIPE</span><small>RETORNO PERSONALIZADO</small></div><h3>Como podemos ajudar?</h3><div className="form-row"><label>Seu nome<input name="name" value={form.name} onChange={change} placeholder="Nome completo" required/></label><label>Seu e-mail<input name="email" type="email" value={form.email} onChange={change} placeholder="voce@empresa.com.br" required/></label></div><label>Empresa<input name="company" value={form.company} onChange={change} placeholder="Nome da empresa (opcional)"/></label><label>Assunto<select name="subject" value={form.subject} onChange={change}>{["Consultoria contábil e fiscal","Planejamento tributário","BPO financeiro","Legalização de empresas","Reforma tributária","Outro assunto"].map(x=><option key={x}>{x}</option>)}</select></label><label>Mensagem<textarea name="message" value={form.message} onChange={change} placeholder="Conte brevemente o que sua empresa precisa..." rows="3"/></label><button className="button button-gold form-submit" type="submit">Enviar pelo WhatsApp <Arrow/></button><small className="privacy-note">Ao enviar, você será direcionado ao WhatsApp para concluir o contato. Seus dados não são armazenados por este formulário.</small></form></div></section>
+  </main>
+  <footer className="site-footer"><div className="container footer-main"><div><Brand/><p>Contabilidade estratégica para empresas que buscam segurança fiscal, previsibilidade financeira e crescimento sustentável.</p></div><div className="footer-nav"><strong>NAVEGAÇÃO</strong><a href="#sobre">A empresa</a><a href="#servicos">Serviços</a><a href="#setores">Setores</a><a href="#equipe">Liderança</a><a href="#contato">Contato</a></div><div className="footer-contact"><strong>FALE CONOSCO</strong><a href="tel:+5569993360496">(69) 99336-0496</a><a href="mailto:israel.barros@barroseassociados.com.br">israel.barros@barroseassociados.com.br</a><a href={chat()} target="_blank" rel="noreferrer">WhatsApp <Arrow up/></a></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Barros & Associados. Todos os direitos reservados.</span><span>PORTO VELHO · RO — BRASIL</span><a href="#inicio">VOLTAR AO TOPO ↑</a></div></footer>
+ </div>;
 }
