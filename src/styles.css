@@ -18,3 +18,108 @@
 @media(max-width:850px){.nav{gap:13px}.nav>a:not(.nav-button){font-size:9px}.hero-panel{gap:17px}.section-heading{align-items:flex-start}.why-grid,.service-grid{grid-template-columns:repeat(2,1fr)}.testimonial-section{gap:25px}.faq-section{gap:35px}}
 @media(max-width:620px){.wrap{width:calc(100% - 28px)}.microbar{font-size:6px}.micro-inner>span{gap:5px}.micro-inner>a{font-size:7px}.header{height:58px}.brand b{font-size:10px}.brand-symbol{width:21px;height:21px}.hamb{display:flex;width:33px;height:33px;flex-direction:column;justify-content:center;align-items:center;gap:5px;border:1px solid #dce2e6;border-radius:5px;background:#fff}.hamb span{width:14px;height:1.5px;background:var(--navy)}.nav{display:none;position:absolute;top:57px;left:0;right:0;padding:12px 18px 18px;background:#fff;border-bottom:1px solid #dfe4e8;box-shadow:0 10px 20px #102b4915}.nav.open{display:flex;flex-direction:column;align-items:stretch;gap:0}.nav>a:not(.nav-button){padding:12px 0;border-bottom:1px solid #edf0f1;font-size:11px}.nav-button{justify-content:space-between;margin-top:12px}.main-content{padding-top:12px}.hero-panel{grid-template-columns:1fr;padding:17px;gap:14px}.hero-copy h1{font-size:31px;letter-spacing:-1.3px}.hero-copy>p{font-size:9px}.hero-facts{margin-top:12px}.hero-photo{min-height:270px}.hero-photo>img{min-height:270px;max-height:310px;object-position:center 25%}.founder-panel{padding:16px;margin-top:12px}.founder-heading h2{font-size:17px}.founder-intro{font-size:8px}.credential-grid{grid-template-columns:1fr 1fr;gap:7px}.credential-grid article{min-height:69px}.founder-quote{grid-template-columns:1fr}.founder-quote blockquote{min-height:105px}.section-space{padding:35px 0}.section-heading{display:block}.section-heading h2,.testimonial-intro h2,.faq-intro h2{font-size:24px}.section-heading .small-link{margin-top:13px}.why-grid,.service-grid{grid-template-columns:1fr 1fr;gap:7px}.why-card{min-height:120px;padding:10px}.why-card h3{font-size:9px}.why-card p{font-size:7px}.sectors-panel{padding:15px}.sectors-top h2{font-size:18px}.sectors-top p{font-size:7px}.sector-count{min-width:51px;padding:6px}.sector-count strong{font-size:16px}.sector-grid{grid-template-columns:1fr 1fr;gap:6px}.sector-card{min-height:79px;padding:8px}.sector-card h3{font-size:8px}.sector-card p{font-size:6px}.sector-controls>a{font-size:6px;padding:7px}.team-panel{padding:16px}.team-heading h2{font-size:19px}.team-grid{grid-template-columns:1fr;gap:8px}.team-card{display:grid;grid-template-columns:105px 1fr;min-height:112px}.team-image{height:100%;min-height:112px}.team-image:before{width:42px;height:42px;left:calc(50% - 21px);top:18px}.team-image:after{width:84px;height:57px;left:calc(50% - 42px)}.team-info{align-self:center}.team-bottom{align-items:flex-start;flex-direction:column;gap:10px}.testimonial-section,.faq-section,.contact-panel{grid-template-columns:1fr;gap:20px}.testimonial-cards{grid-template-columns:1fr 1fr;gap:7px}.testimonial-cards article{padding:10px}.testimonial-cards p{font-size:8px}.contact-panel{padding:16px}.contact-copy h2{font-size:29px}.form-row{grid-template-columns:1fr;gap:0}.contact-form{padding:15px}.footer-main{grid-template-columns:1fr 1fr;gap:22px 14px}.footer-brand{grid-column:1/-1}.footer-bottom{padding:10px 0;flex-wrap:wrap;justify-content:flex-start}.footer-bottom>*{margin-right:8px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* Focused refinement: centered editorial width, calmer contrast and comfortable reading */
+.wrap{width:min(900px,calc(100% - 40px))}
+.header-inner,.micro-inner,.footer-main,.footer-bottom{max-width:900px}
+.main-content{padding-top:18px}
+.hero-panel{min-height:300px;padding:21px;gap:20px}
+.hero-photo,.hero-photo>img{min-height:255px}
+.hero-copy h1{font-size:clamp(27px,3vw,34px);line-height:1.12}
+.hero-copy>p,.founder-intro,.section-heading p,.sectors-top p,.team-heading p,.testimonial-intro>p,.faq-intro>p,.contact-copy>p{font-size:11px;line-height:1.75}
+.section-space{padding:37px 0}
+.founder-panel{padding:19px 20px 17px}
+.founder-heading h2,.sectors-top h2{font-size:19px}
+.founder-quote p{font-size:10px;line-height:1.75}
+.credential-grid article>b{font-size:10px}
+.credential-grid article>small{font-size:8px}
+.why-card{min-height:105px;padding:11px}
+.why-card h3,.service-card h3{font-size:11px}
+.why-card p,.service-card p{font-size:9px;line-height:1.65}
+.sectors-panel{padding:18px}
+.sector-card{min-height:76px;padding:9px}
+.sector-card h3{font-size:9px}
+.sector-card p{font-size:8px;line-height:1.55}
+.service-card{min-height:130px;padding:12px 12px 29px}
+.team-panel{padding:20px}
+.team-info p{font-size:9px}
+.team-info h3{font-size:13px}
+.testimonial-cards p{font-size:10px;line-height:1.65}
+.faq-item button{font-size:11px;min-height:46px}
+.faq-item p{font-size:10px;line-height:1.7}
+.contact-panel{padding:21px;gap:27px}
+.contact-methods b{font-size:10px}
+.contact-form label{font-size:9px}
+.contact-form input,.contact-form select,.contact-form textarea{font-size:10px}
+.footer-brand p,.footer-main>div>a:not(.brand){font-size:10px;line-height:1.65}
+@media(max-width:620px){
+ .wrap{width:calc(100% - 28px)}
+ .microbar{height:27px}
+ .header{height:56px}
+ .main-content{padding-top:10px}
+ .hero-panel{padding:14px;gap:12px;border-radius:10px}
+ .hero-copy h1{font-size:clamp(27px,8vw,32px);line-height:1.12}
+ .hero-copy>p{font-size:12px;line-height:1.7}
+ .hero-buttons{flex-wrap:wrap;margin-top:13px}
+ .btn-primary,.btn-secondary{min-height:40px;font-size:11px}
+ .hero-facts span{font-size:9px;padding:8px}
+ .hero-trust{font-size:9px;line-height:1.5}
+ .hero-photo,.hero-photo>img{min-height:230px;max-height:260px}
+ .founder-panel{padding:14px;margin-top:10px}
+ .founder-heading h2,.sectors-top h2{font-size:18px}
+ .founder-intro{font-size:11px;line-height:1.7}
+ .credential-grid article{min-height:68px;padding:9px}
+ .credential-grid article>b{font-size:10px}
+ .credential-grid article>small{font-size:8px}
+ .founder-quote>div{padding:12px}
+ .founder-quote p{font-size:10px;line-height:1.7}
+ .founder-quote blockquote strong{font-size:12px}
+ .section-space{padding:29px 0}
+ .section-heading h2,.testimonial-intro h2,.faq-intro h2{font-size:23px;line-height:1.2}
+ .section-heading p,.testimonial-intro>p,.faq-intro>p{font-size:11px;line-height:1.7}
+ .why-grid,.service-grid{gap:8px}
+ .why-card{min-height:120px;padding:10px}
+ .why-card h3,.service-card h3{font-size:11px;line-height:1.35}
+ .why-card p,.service-card p{font-size:9px;line-height:1.6}
+ .sectors-panel{padding:13px}
+ .sectors-top{gap:10px}
+ .sectors-top p{font-size:10px;line-height:1.6}
+ .sector-card{min-height:82px;padding:8px}
+ .sector-card h3{font-size:9px}
+ .sector-card p{font-size:8px;line-height:1.5}
+ .sector-controls>a{font-size:8px}
+ .team-panel{padding:14px}
+ .team-heading h2{font-size:20px}
+ .team-heading p{font-size:10px;line-height:1.65}
+ .team-info{padding:10px}
+ .team-info>small{font-size:8px}
+ .team-info h3{font-size:12px}
+ .team-info p{font-size:9px}
+ .team-bottom>span{font-size:7px;line-height:1.5}
+ .team-bottom>a{font-size:9px;padding:9px 11px}
+ .testimonial-cards p{font-size:10px;line-height:1.6}
+ .testimonial-cards b{font-size:9px}
+ .testimonial-cards small{font-size:8px}
+ .faq-item button{font-size:11px;min-height:48px}
+ .faq-item p{font-size:10px;line-height:1.7}
+ .contact-panel{padding:14px;gap:17px}
+ .contact-copy h2{font-size:28px}
+ .contact-copy>p{font-size:11px}
+ .contact-methods b{font-size:10px}
+ .contact-form{padding:13px}
+ .contact-form h3{font-size:17px}
+ .contact-form label{font-size:9px}
+ .contact-form input,.contact-form select,.contact-form textarea{font-size:11px;min-height:39px}
+ .contact-form textarea{min-height:75px}
+ .submit{min-height:42px}
+ .form-privacy{font-size:8px}
+ .footer-main{padding:22px 0}
+ .footer-brand p,.footer-main>div>a:not(.brand){font-size:10px}
+ .footer-bottom{font-size:7px;line-height:1.5}
+}
+@media(max-width:370px){
+ .hero-facts{grid-template-columns:1fr}
+ .credential-grid{grid-template-columns:1fr 1fr}
+ .testimonial-cards{grid-template-columns:1fr}
+ .sector-controls{gap:8px}
+}
